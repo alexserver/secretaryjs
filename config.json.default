@@ -1,0 +1,18 @@
+{
+	"channels" : ["#node.js","#jquery"],
+	"username": "alexserver",
+	"server": "chat.freenode.net",
+	"botName": "secretary",
+	"email": "alexserverone@gmail.com",
+	"connection": {
+		"host": "127.0.0.1",
+		"port": 6379,
+		"db": 0,
+		"password": null
+	},
+	"emailing": {
+		"service": "Gmail",
+		"username": "yourusername@gmail.com",
+		"password": "yourpassword"
+	}
+}
