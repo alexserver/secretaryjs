@@ -33,9 +33,8 @@ var main = function() {
 	bot.addListener('message', function(from, to, msg, raw){
 		console.log("Message -> From: "+from+", To:"+to+" >>> "+msg);
 		//if comes as private from username, so it's a command
-		if (from == config.username) {
+		if (from == config.username && to == config.botName) {
 			var params = msg.split(' ');
-console.log(params);
 			if ((/^getmsg/).test(msg)) {
 				//please retrieve messages...
 				filter = (params[1] !== "undefined")? params[1] : null;
@@ -87,8 +86,6 @@ function saveInRedis(user, data){
 }
 
 function readFromRedis(user, filter, fn){
-console.log('arguments');
-console.log(arguments);
 	var key = "user:"+user+":messages";
 	var json, body;
 	var messages = [];
@@ -163,39 +160,3 @@ function sendMessagesByMail(user, messages) {
 		}
 	});
 }
-
-/*
-	Legacy !!!!
-
-function go1(from, msg) {
-	var dataFile = "data.json";
-	var data = {messages:[]};
-	fs.exists(dataFile, function(exists){
-		if (exists) {
-			//read it...
-			datastr = fs.readFile(dataFile, function(err, str){
-				if (err) throw err;
-				data = JSON.parse(str);
-				if (!("messages" in data)) {
-					data.messages = [];
-				}
-//this is the problem !! this is within a callback !!!
-				go2(data, from, msg, dataFile);
-			});
-		}
-		else {
-			go2(data, from, msg, dataFile);
-		}
-	});
-}
-function go2(data, from, msg, dataFile) {
-	//goes to data
-	data.messages.push({
-		from: from,
-		text: msg
-	});
-	fs.writeFile(dataFile, JSON.stringify(data), function(){
-		console.log("message saved : " + msg);
-	});
-}
-*/
